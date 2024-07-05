@@ -2,7 +2,7 @@ import express from "express";
 import { validate } from '../middlewares/validationMiddleware.js';
 import { workspaceDEFValidationSchema, paginationSchema } from "../validations/validationSchema.js";
 import authMiddleware from "../middlewares/authMiddleware.js";
-import DEFController from "../controllers/defController.js";
+import DEFController from "../controllers/DEFController.js";
 
 const router = express.Router();
 const defController = new DEFController();
