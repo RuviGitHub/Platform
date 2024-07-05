@@ -25,7 +25,7 @@ class UserService {
       const response = await EmailService.sendVerifyEmail(dto.email);
 
       if (response.success) {
-        await this.repository.saveEmailRecord(dto.email, response.otp);
+        await this.repository.saveEmailRecord({email:dto.email, otp:response.otp, invitationToken: null});
         return {
           success: true,
           message: "Verification email sent.",
