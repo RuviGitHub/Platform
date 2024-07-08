@@ -38,7 +38,10 @@ class WorkspaceService {
 
       // Get package details
       const packageDetails = await this.metaDataRepository.getPackagesById(dto.packageId);
-
+      let isActive = true;
+      if (packageDetails.packageNumber == 1) {
+        isActive = false;
+      }
       // Hash the password
       const SALT_ROUNDS = parseInt(process.env.SALT_ROUNDS, 10);
       const hashedPassword = await bcrypt.hash(dto.password, SALT_ROUNDS);
@@ -71,7 +74,7 @@ class WorkspaceService {
         isRootUser: true,
         pushId: dto.pushId,
         deviceId: dto.deviceId,
-        isActive: false,
+        isActive: isActive,
         isFirstTimeLogin: true,
       };
       const platformUser = await this.userRepository.savePlatformUserRepository(newPlatformUser);

@@ -39,6 +39,7 @@ class WorkspaceController {
         return errorResponse(res, response.message, 500);
       }
     } catch (error) {
+      console.log(error)
       next(error);
     }
   }
