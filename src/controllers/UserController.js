@@ -80,21 +80,22 @@ class UserController {
     }
   }
 
-  // async registerUserController(req, res, next) {
-  //   try {
-  //     const dto = req.body;
-  //     const response = await userService.registerUserService(dto);
+  //Mobile register API 
+  async registerUserController(req, res, next) {
+    try {
+      const dto = req.body;
+      const response = await userService.registerUserService(dto);
 
-  //     // Check if response is successful
-  //     if (response && response.success) {
-  //       return successResponse(res, response.message, response.data);
-  //     } else {
-  //       return errorResponse(res, response.message, 500);
-  //     }
-  //   } catch (error) {
-  //     next(error);
-  //   }
-  // }
+      // Check if response is successful
+      if (response && response.success) {
+        return successResponse(res, response.message, response.data);
+      } else {
+        return errorResponse(res, response.message, 500);
+      }
+    } catch (error) {
+      next(error);
+    }
+  }
 
   async loginController(req, res, next) {
     try {

@@ -137,6 +137,25 @@ class UserService {
     }
   }
 
+  async registerUserService(dto) {
+    try {
+      const response = await this.repository.registerUserRepository(dto);
+      if (response) {
+        return {
+          success: response.success,
+          message: response.message,
+          data: response.data,
+        };
+      }
+    } catch (error) {
+      return {
+        success: false,
+        message: error.message,
+        data: null,
+      };
+    }
+  }
+
   async resetPassowrdService(dto) {
     try {
       // Check if email already exists

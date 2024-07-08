@@ -79,6 +79,34 @@ export const workspaceBillingDetailsSchema = Joi.object({
   }),
 });
 
+//Endpoint : v1/platform/user/register-user
+export const registerUserValidationSchema = Joi.object({
+  password: Joi.string().required().messages({
+    'string.base': 'Password must be a string.',
+    'string.empty': 'Password cannot be empty.',
+    'any.required': 'Password is required.',
+  }),
+  fullName: Joi.string().trim().min(3).max(60).required().messages({
+    'string.base': 'Full Name must be a string.',
+    'string.empty': 'Full Name cannot be empty.',
+    'string.min': 'Full Name must be at least 3 characters long.',
+    'string.max': 'Full Name must be at most 60 characters long.',
+    'any.required': 'Full Name is required.',
+  }),
+  phoneNumber: Joi.string().pattern(/^[0-9]+$/).min(6).max(15).required().messages({
+    'string.base': 'Phone Number must be a string.',
+    'string.pattern.base': 'Phone Number must contain only digits.',
+    'string.min': 'Phone Number must be at least 6 digits long.',
+    'string.max': 'Phone Number must be at most 15 digits long.',
+    'any.required': 'Phone Number is required.',
+  }),
+  countryCode: Joi.string().required().messages({
+    'string.base': 'Country Code must be a string.',
+    'string.empty': 'Country Code cannot be empty.',
+    'any.required': 'Country Code is required.',
+  }),
+});
+
 //Endpoint : v1/platform/workspace/register-workspace
 export const registerWorkspaceValidationSchema = Joi.object({
   packageId: Joi.string().hex().length(24).required().messages({

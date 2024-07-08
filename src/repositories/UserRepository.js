@@ -52,7 +52,12 @@ class UserRepository {
       // Update the user's password
       const updatedEntity = await PlatformUser.findOneAndUpdate(
         { email: dto.email },
-        { password: hashedPassword },
+        {
+          password: hashedPassword,
+          fullName : dto.fullName,
+          phoneNumber : dto.phoneNumber,
+          countryCode: dto.countryCode,
+        },
         { new: true }
       );
 
@@ -69,6 +74,17 @@ class UserRepository {
           data: null,
         };
       }
+    } catch (error) {
+      return {
+        success: false,
+        message: error.message,
+        data: null,
+      };
+    }
+  }
+
+  async registerUserRepository(dto) {
+    try {
     } catch (error) {
       return {
         success: false,
@@ -209,9 +225,12 @@ class UserRepository {
   async saveEmailRecord(dto) {
     try {
       const existingRecord = await EmailRecord.findOne({ email: dto.email });
-      console.log(dto.invitationToken,"Token")
+      console.log(dto.invitationToken, "Token");
       if (existingRecord) {
-        let updatedFields = { otp: dto.otp, invitationToken: dto.invitationToken };
+        let updatedFields = {
+          otp: dto.otp,
+          invitationToken: dto.invitationToken,
+        };
 
         const emailRecord = await EmailRecord.findOneAndUpdate(
           { email: email },
