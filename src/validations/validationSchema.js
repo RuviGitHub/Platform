@@ -134,11 +134,7 @@ export const registerWorkspaceValidationSchema = Joi.object({
     'string.length': 'Workspace Color ID must be exactly 24 characters long.',
     'any.required': 'Workspace Color ID is required.',
   }),
-  workspaceLogoURL: Joi.string().uri().required().messages({
-    'string.base': 'Workspace Logo URL must be a valid URI.',
-    'string.empty': 'Workspace Logo URL cannot be empty.',
-    'any.required': 'Workspace Logo URL is required.',
-  }),
+  workspaceLogoURL: Joi.string().allow('').optional(),
   pushId: Joi.string().allow('').optional().trim(),
   deviceId: Joi.string().allow('').optional().trim(),
 });
