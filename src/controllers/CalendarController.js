@@ -7,19 +7,10 @@ class CalendarController {
     
    async createCalendarController(req, res, next) {
       try {
-         const { workspaceId, calendarName, calendarStatus, workspaceUserId } =
+         const dto =
             req.body;
-         if (
-            !workspaceId ||
-            !calendarName ||
-            !calendarStatus ||
-            !workspaceUserId
-         ) {
-            const errorMessage =
-               "Required fields are missing: calendarName, calendarStatus & workspaceId";
-            return errorResponse(res, errorMessage, 400);
-         }
-         const response = await calendarService.createCalendarService(req.body);
+         
+         const response = await calendarService.createCalendarService(dto);
          // Check if response is successful
          if (response && response.success) {
             return successResponse(res, response.message, response.data);

@@ -257,8 +257,6 @@ export const createCalendarValidationSchema = Joi.object({
     "any.only": "Calendar status must be one of [0, 1].",
     "any.required": "Calendar status is required.",
   }),
-  isActive: Joi.boolean().default(true),
-  workspaceUserId: stringWithMinMax(24, 24),
 });
 
 

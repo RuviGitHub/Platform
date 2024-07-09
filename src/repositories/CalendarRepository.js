@@ -13,7 +13,7 @@ class CalendarRepository {
          if (existCalendar) {
             return {
                success: false,
-               message: "This calendar name already exist !",
+               message: "This calendar already exist.",
                data: null,
             };
          }
@@ -23,7 +23,7 @@ class CalendarRepository {
 
          return {
             success: true,
-            message: "Calendar Created Successfully.",
+            message: "Calendar created.",
             data: createdCalendar,
          };
       } catch (error) {
