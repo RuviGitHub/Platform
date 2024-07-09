@@ -10,6 +10,7 @@ const userController = new UserController();
 router.get('/verify-email', userController.verifyEmailController);
 router.get('/verify-otp', userController.verifyOTPController);
 router.post('/login', validate(loginUserValidationSchema), userController.loginController);
+router.post('/logout', userController.logoutController);
 router.get('/reset-password', userController.resetPassowrdController);
 router.get('/update-password', userController.updatePassowrdController);
 router.get('/auth', authMiddleware, userController.authController);
