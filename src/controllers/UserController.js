@@ -167,8 +167,8 @@ class UserController {
        };
 
       // Check if email is provided
-      if (!dto.password) {
-        const errorMessage = "Required fields are missing: password";
+      if (!dto.password && !dto.email) {
+        const errorMessage = "Required fields are missing:email & password  ";
         return errorResponse(res, errorMessage, 400);
       }
 
@@ -179,7 +179,9 @@ class UserController {
       } else {
         return errorResponse(res, response.message, 500);
       }
-    } catch (error) {}
+    } catch (error) {
+      next(error)
+    }
   }
 
   async authController(req, res, next) {
