@@ -51,12 +51,14 @@ class WorkspaceRepository {
     try {
       const newWorkspace = new PlatformWorkspace(dto);
       const savedWorkspace = await newWorkspace.save();
+
       return {
         success: false,
         message: "Platform workspace saved.",
         data: savedWorkspace
       }
     } catch (error) {
+      console.log(error)
       return {
         success: false,
         message: "Platform workspace saving error.",
@@ -75,6 +77,7 @@ class WorkspaceRepository {
         data: savedWorkspaceUser
       }
     } catch (error) {
+      console.log(error)
       return {
         success: false,
         message: "Workspace user saving error.",

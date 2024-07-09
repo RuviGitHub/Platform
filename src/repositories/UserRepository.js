@@ -83,17 +83,6 @@ class UserRepository {
     }
   }
 
-  async registerUserRepository(dto) {
-    try {
-    } catch (error) {
-      return {
-        success: false,
-        message: error.message,
-        data: null,
-      };
-    }
-  }
-
   async inviteUserRepository(dto) {
     try {
       const platformUser = new PlatformUser({
