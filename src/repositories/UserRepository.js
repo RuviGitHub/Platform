@@ -54,8 +54,8 @@ class UserRepository {
         { email: dto.email },
         {
           password: hashedPassword,
-          fullName : dto.fullName,
-          phoneNumber : dto.phoneNumber,
+          fullName: dto.fullName,
+          phoneNumber: dto.phoneNumber,
           countryCode: dto.countryCode,
         },
         { new: true }
@@ -233,7 +233,7 @@ class UserRepository {
         };
 
         const emailRecord = await EmailRecord.findOneAndUpdate(
-          { email: email },
+          { email: dto.email },
           { $set: updatedFields },
           { new: true }
         );
@@ -274,6 +274,16 @@ class UserRepository {
       return updatedEntity;
     } catch (error) {
       console.error("updateToken:", error);
+      return null;
+    }
+  }
+
+  async removeToken(userId, token) {
+    try {
+      const updatedEntity = await Token.findOneAndDelete({ userId, token });
+      return updatedEntity;
+    } catch (error) {
+      console.error("removeToken:", error);
       return null;
     }
   }

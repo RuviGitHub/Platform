@@ -113,6 +113,22 @@ class UserController {
     }
   }
 
+  async logoutController(req, res, next) {
+    try {
+      const dto = req.body;
+      const response = await userService.logoutService(dto);
+
+      // Check if response is successful
+      if (response && response.success) {
+        return successResponse(res, response.message, response.data);
+      } else {
+        return errorResponse(res, response.message, 500);
+      }
+    } catch (error) {
+      next(error);
+    }
+  }
+
   async resetPassowrdController(req, res, next) {
     try {
       const email = req.query.email;

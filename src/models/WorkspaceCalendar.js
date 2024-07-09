@@ -74,19 +74,10 @@ const workspaceCalendarSchema = new Schema(
       type: Boolean,
       default: false,
     },
-    createdBy: {
-      type: Schema.Types.ObjectId,
-      ref: "WorkspaceUser",
-      required: true,
-    },
     calendarStatus: {
       type: Number,
       enum: [0, 1], // 0: inactive, 1: active
       default: 1,
-    },
-    updatedBy: {
-      type: Schema.Types.ObjectId,
-      ref: "WorkspaceUser",
     },
     isActive: {
       type: Boolean,

@@ -25,7 +25,11 @@ class UserService {
       const response = await EmailService.sendVerifyEmail(dto.email);
 
       if (response.success) {
-        await this.repository.saveEmailRecord({email:dto.email, otp:response.otp, invitationToken: null});
+        await this.repository.saveEmailRecord({
+          email: dto.email,
+          otp: response.otp,
+          invitationToken: null,
+        });
         return {
           success: true,
           message: "Verification email sent.",
@@ -137,6 +141,42 @@ class UserService {
     }
   }
 
+  async logoutService(dto) {
+    try {
+      // Check if the user exists
+      const user = await this.repository.getPlatformUserByEmail(dto.email);
+      if (!user) {
+        return {
+          success: false,
+          message: "User not found.",
+          data: null,
+        };
+      }
+
+      // Remove existing token for the user
+      const removedToken = await this.repository.removeToken(user._id, token);
+      if (removedToken == null) {
+        return {
+          success: false,
+          message: "Something went wrong",
+          data: null,
+        };
+      }
+      return {
+        success: true,
+        message: "Logout successful.",
+        data: null,
+      };
+    } catch (error) {
+      console.log(error);
+      return {
+        success: false,
+        message: error.message,
+        data: null,
+      };
+    }
+  }
+
   async registerUserService(dto) {
     try {
       const response = await this.repository.registerUserRepository(dto);
@@ -173,7 +213,11 @@ class UserService {
       const response = await EmailService.sendVerifyEmail(dto.email);
 
       if (response.success) {
-        await this.repository.saveEmailRecord(dto.email, response.otp);
+        await this.repository.saveEmailRecord({
+          email: dto.email,
+          otp: response.otp,
+          invitationToken: null,
+        });
         return {
           success: true,
           message: "Verification email sent.",
@@ -260,11 +304,14 @@ class UserService {
 
       if (dto.role == 0) {
         const email = await EmailService.inviteNormalUser(dto.email);
-        
+
         if (email.success) {
           // Hash the password
-          const hashedPassword = await bcrypt.hash(email.otp.toString(), SALT_ROUNDS);
-         dto.password = hashedPassword;
+          const hashedPassword = await bcrypt.hash(
+            email.otp.toString(),
+            SALT_ROUNDS
+          );
+          dto.password = hashedPassword;
           // Fetch a random profile color
           const randomProfileColor =
             await this.repository.getRandomProfileColor();
@@ -278,7 +325,7 @@ class UserService {
           dto.profileColorId = randomProfileColor._id;
           dto.otp = email.otp || null;
           dto.invitationToken = email.invitationLink || null;
-          
+
           await this.repository.saveEmailRecord(dto);
           await this.repository.inviteUserRepository(dto);
           return {
@@ -293,7 +340,7 @@ class UserService {
             data: null,
           };
         }
-      }else if (dto.role == 1) {
+      } else if (dto.role == 1) {
         const email = await EmailService.inviteAdminUser(dto.email);
         if (email.success) {
           // Fetch a random profile color
@@ -336,7 +383,9 @@ class UserService {
 
   async getAllUsersPaginatedService(dto) {
     try {
-      const response = await this.repository.getAllUsersPaginatedRepository(dto);
+      const response = await this.repository.getAllUsersPaginatedRepository(
+        dto
+      );
       return response;
     } catch (error) {
       return {
@@ -346,7 +395,6 @@ class UserService {
       };
     }
   }
-
 }
 
 export default UserService;
