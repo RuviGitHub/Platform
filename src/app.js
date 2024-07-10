@@ -6,6 +6,7 @@ import workspaceRoute from "./routes/workspaceRoute.js";
 import calendarRoute from "./routes/calendarRoute.js";
 import defRoute from "./routes/defRoute.js"
 import widgetRoute from "./routes/widgetRoute.js"
+import dazhRoute from "./routes/dazhRoute.js"
 
 const app = express();
 
@@ -26,6 +27,7 @@ app.use("/v1/platform/user", userRoute);
 app.use("/v1/platform/workspace", workspaceRoute);
 app.use("/v1/platform/calendar", calendarRoute);
 app.use("/v1/platform/def", defRoute);
+app.use("/v1/platform/dazh", dazhRoute);
 app.use("/v1/platform/widget", widgetRoute);
 
 export default app;
