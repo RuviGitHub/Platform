@@ -83,17 +83,6 @@ class UserRepository {
     }
   }
 
-  async registerUserRepository(dto) {
-    try {
-    } catch (error) {
-      return {
-        success: false,
-        message: error.message,
-        data: null,
-      };
-    }
-  }
-
   async inviteUserRepository(dto) {
     try {
       const platformUser = new PlatformUser({
@@ -278,9 +267,9 @@ class UserRepository {
     }
   }
 
-  async removeToken(userId, token) {
+  async removeToken(userId) {
     try {
-      const updatedEntity = await Token.findOneAndDelete({ userId, token });
+      const updatedEntity = await Token.findOneAndDelete({ userId });
       return updatedEntity;
     } catch (error) {
       console.error("removeToken:", error);

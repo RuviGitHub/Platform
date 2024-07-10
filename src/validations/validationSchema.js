@@ -218,21 +218,47 @@ export const registerWorkspaceValidationSchema = Joi.object({
 });
 
 // Endpoint: v1/platform/calendar/create-calendar
+const holidayValidationSchema = Joi.object({
+  name: stringWithMinMax(3, 60),
+  date: Joi.date().required().messages({
+    "date.base": "Holiday date must be a valid date.",
+    "any.required": "Holiday date is required.",
+  }),
+});
+
+const workingDaysValidationSchema = Joi.object({
+  name: stringWithMinMax(3, 60),
+  date: Joi.date().required().messages({
+    "date.base": "Working day date must be a valid date.",
+    "any.required": "Working day date is required.",
+  }),
+});
+
 export const createCalendarValidationSchema = Joi.object({
   workspaceId: stringWithMinMax(24, 24),
-  calendarName: Joi.string().trim().min(3).max(100).required().messages({
-    "string.base": "Calendar name must be a string.",
-    "string.min": "Calendar name must be at least 3 characters long.",
-    "string.max": "Calendar name must be at most 100 characters long.",
-    "any.required": "Calendar name is required.",
+  calendarName: stringWithMinMax(3, 100),
+  description: Joi.string().min(3).max(150).trim().messages({
+    "string.base": "Description must be a string.",
+    "string.empty": "Description cannot be empty.",
+    "string.min": "Description must be at least 3 characters long.",
+    "string.max": "Description must be at most 150 characters long.",
   }),
+  workingDays: Joi.array().items(workingDaysValidationSchema).default([]),
+  holidays: Joi.array().items(holidayValidationSchema).default([]),
+  sunday: Joi.boolean().default(false),
+  monday: Joi.boolean().default(false),
+  tuesday: Joi.boolean().default(false),
+  wednesday: Joi.boolean().default(false),
+  thursday: Joi.boolean().default(false),
+  friday: Joi.boolean().default(false),
+  saturday: Joi.boolean().default(false),
   calendarStatus: Joi.number().valid(0, 1).required().messages({
     "number.base": "Calendar status must be a number.",
     "any.only": "Calendar status must be one of [0, 1].",
     "any.required": "Calendar status is required.",
   }),
-  workspaceUserId: stringWithMinMax(24, 24),
 });
+
 
 // Date entry schema used in calendar endpoints
 const dateEntrySchema = Joi.object({
@@ -282,6 +308,12 @@ export const workspaceDEFValidationSchema = Joi.object({
   defDescription: descriptionValidation,
   defFields: Joi.array().items(fieldValidationSchema).default([]),
 });
+
+
+
+
+
+
 
 // Common pagination schema
 export const paginationSchema = Joi.object({

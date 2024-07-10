@@ -154,7 +154,7 @@ class UserService {
       }
 
       // Remove existing token for the user
-      const removedToken = await this.repository.removeToken(user._id, token);
+      const removedToken = await this.repository.removeToken(user._id);
       if (removedToken == null) {
         return {
           success: false,

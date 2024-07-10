@@ -81,7 +81,7 @@ class WorkspaceService {
 
       // Create workspace
       const newWorkspace = {
-        workspaceOwnerPlatformUserId: platformUser.id,
+        workspaceOwnerPlatformUserId: platformUser.data._id,
         workspaceName: dto.workspaceName,
         workspaceLogoURL: dto.workspaceLogoURL,
         workspaceColorId: dto.workspaceColorId,
@@ -98,8 +98,8 @@ class WorkspaceService {
 
       // Create workspace user
       const newWorkspaceUser = {
-        platformUserId: platformUser.id,
-        workspaceId: platformWorkspace._id,
+        platformUserId: platformUser.data._id,
+        workspaceId: platformWorkspace.data._id,
         email: dto.email,
         profileColorId: dto.profileColorId,
         role: 1, 
@@ -113,7 +113,7 @@ class WorkspaceService {
         return {
           success: true,
           message: "Workspace registered.",
-          data: null
+          data: {platformUser:platformUser,platformWorkspace:platformWorkspace,workspaceUser:workspaceUser}
         };
       }
 
