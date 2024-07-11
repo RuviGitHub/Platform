@@ -323,3 +323,27 @@ export const paginationSchema = Joi.object({
   order: Joi.string().valid("asc", "desc").default("asc").empty(null),
   search: Joi.string().allow("").default("").empty(null),
 });
+
+
+//create dazhboardschema
+export const createdazhschema = Joi.object({
+  name: Joi.string().min(3).max(60).required(),
+  password:passwordValidation,
+});
+
+//update dazhboardschema
+export const updatedazhschema = Joi.object({
+  name: Joi.string().min(3).max(60).required(),
+  password:passwordValidation,
+});
+
+export const createWidgetSchema = Joi.object({
+  name: Joi.string().min(3).max(60).required(),
+});
+
+
+export const updateWidgetSchema = Joi.object({
+  name: Joi.string().min(3).max(60).required(),
+});
+
+
