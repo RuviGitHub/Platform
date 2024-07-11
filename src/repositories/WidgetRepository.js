@@ -80,16 +80,16 @@ class WidgetRepository {
       }
 
       const query = {
-        isActive: true,
+     
       };
 
-      if (dto.search) {
+      /* if (dto.search) {
         query.fullName = { $regex: dto.search, $options: "i" };
       }
 
       if (dto.workspaceId) {
         query.workspaceId = dto.workspaceId;
-      }
+      } */
 
       const allWidgets = WorkspaceWidget.find(query);
 
@@ -106,7 +106,7 @@ class WidgetRepository {
         success: true,
         message: "Widgets fetched.",
         data: {
-          defs,
+          defs :widgets,
           totalPages: Math.ceil(totalWidgets / dto.limit),
           currentPage: dto.page,
         },
@@ -125,7 +125,7 @@ class WidgetRepository {
       const existingEntity = await WorkspaceWidget.findOne({
         widgetName: dto.widgetName,
         workspaceId: dto.workspaceId,
-        isActive: true,
+     // isActive: true,
       });
 
       if (!existingEntity) {

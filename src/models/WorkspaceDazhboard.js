@@ -3,6 +3,11 @@ import mongoose from "mongoose";
 const { Schema } = mongoose;
 
 const workspaceDazhboardSchema = new Schema({
+  workspaceId: {
+    type: Schema.Types.ObjectId,
+    ref: 'PlatformWorkspace', // Reference to another model if needed
+    required: true,
+  },
   dazhboardName: {
     type: String,
     required: true,
