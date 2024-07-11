@@ -23,11 +23,11 @@ class DazhController {
   async dazhNameCheckController(req, res, next) {
     try {
       const dto = {
-        dazhName: req.query.dazhName.trim(),
+        dazhboardName: req.query.dazhboardName.trim(),
         workspaceId: req.query.workspaceId,
       };
 
-      if (!dto.dazhName && !dto.workspaceId)
+      if (!dto.dazhboardName && !dto.workspaceId)
         return errorResponse(
           res,
           "Required fields are missing: dazhName or workspaceId",
@@ -79,6 +79,8 @@ class DazhController {
         password: req.body.password || null,
         widgetCount: req.body.widgetCount || null,
         widget: req.body.widget || null,
+        workspaceId: req.body.workspaceId || null, 
+
       };
 
       if (!dto.workspaceId) {

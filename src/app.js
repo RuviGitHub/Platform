@@ -29,5 +29,6 @@ app.use("/v1/platform/calendar", calendarRoute);
 app.use("/v1/platform/def", defRoute);
 app.use("/v1/platform/dazh", dazhRoute);
 app.use("/v1/platform/widget", widgetRoute);
+app.use("/v1/platform/dazh", dazhRoute);
 
 export default app;
